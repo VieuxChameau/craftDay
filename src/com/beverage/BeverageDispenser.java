@@ -8,6 +8,17 @@ public class BeverageDispenser {
 
 	private Map<String, Double> beverages = new HashMap<String, Double>();
 	
+	private void getBeverageCommand(BeverageDispenserState state, String statementParameter) {
+		double amount = beverages.get(statementParameter);
+		if (amount <= state.getPendingAmountOfMoney()) {
+			state.appendToOutput(statementParameter);
+			while (amount > 0) {
+				Double coin = state.removeFirstCoin();
+				amount -= coin;
+			}
+		}
+	}
+	
 	public String interact(String string) {
 		
 		beverages.put("COCA", 3.0);
@@ -25,14 +36,7 @@ public class BeverageDispenser {
 				String statementParameter = statement.length>1?statement[1]:"";
 				
 				if("GET".equals(statement[0])) {
-					double amount = beverages.get(statementParameter);
-					if (amount <= state.getPendingAmountOfMoney()) {
-						state.appendToOutput(statementParameter);
-						while (amount > 0) {
-							Double coin = state.removeFirstCoin();
-							amount -= coin;
-						}
-					}
+					getBeverageCommand(state, statementParameter);
 				} else if("PUT".equals(statement[0])) {
 					double coin = Double.parseDouble(statementParameter);
 					state.addCoin(coin);
