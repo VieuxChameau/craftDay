@@ -19,6 +19,19 @@ public class BeverageDispenser {
 		}
 	}
 	
+	private void putCoinCommand(BeverageDispenserState state, String statementParameter) {
+		double coin = Double.parseDouble(statementParameter);
+		state.addCoin(coin);
+	}
+	
+	private void coinReturnCommand(BeverageDispenserState state) {
+		for (Double coin : state.getCoins()) {
+			state.appendToOutput(coin.toString());
+		}
+		
+		state.removeCoins();
+	}
+	
 	public String interact(String string) {
 		
 		beverages.put("COCA", 3.0);
@@ -38,14 +51,9 @@ public class BeverageDispenser {
 				if("GET".equals(statement[0])) {
 					getBeverageCommand(state, statementParameter);
 				} else if("PUT".equals(statement[0])) {
-					double coin = Double.parseDouble(statementParameter);
-					state.addCoin(coin);
+					putCoinCommand(state, statementParameter);
 				} else if("COIN-RETURN".equals(statement[0])) {
-					for (Double coin : state.getCoins()) {
-						state.appendToOutput(coin.toString());
-					}
-					
-					state.removeCoins();
+					coinReturnCommand(state);
 				}
 			} catch (Throwable e) {
 				//Should never happen
