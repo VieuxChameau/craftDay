@@ -3,7 +3,7 @@ package com.beverage;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GetBeverageCommand {
+public class GetBeverageCommand implements Command {
 	private Map<String, Double> beverages = new HashMap<String, Double>();
 	
 	public void execute(BeverageDispenserState state, String statementParameter) {

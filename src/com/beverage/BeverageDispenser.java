@@ -17,13 +17,13 @@ public class BeverageDispenser {
 				String statementParameter = statement.length>1?statement[1]:"";
 				
 				if("GET".equals(statement[0])) {
-					GetBeverageCommand command = new GetBeverageCommand();
+					Command command = new GetBeverageCommand();
 					command.execute(state, statementParameter);
 				} else if("PUT".equals(statement[0])) {
-					PutCoinCommand command = new PutCoinCommand();
+					Command command = new PutCoinCommand();
 					command.execute(state, statementParameter);
 				} else if("COIN-RETURN".equals(statement[0])) {
-					CoinReturnCommand command = new CoinReturnCommand();
+					Command command = new CoinReturnCommand();
 					command.execute(state, "");
 				}
 			} catch (Throwable e) {
