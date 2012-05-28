@@ -18,13 +18,13 @@ public class BeverageDispenser {
 				
 				if("GET".equals(statement[0])) {
 					GetBeverageCommand command = new GetBeverageCommand();
-					command.getBeverageCommand(state, statementParameter);
+					command.execute(state, statementParameter);
 				} else if("PUT".equals(statement[0])) {
 					PutCoinCommand command = new PutCoinCommand();
-					command.putCoinCommand(state, statementParameter);
+					command.execute(state, statementParameter);
 				} else if("COIN-RETURN".equals(statement[0])) {
 					CoinReturnCommand command = new CoinReturnCommand();
-					command.coinReturnCommand(state);
+					command.execute(state, "");
 				}
 			} catch (Throwable e) {
 				//Should never happen
