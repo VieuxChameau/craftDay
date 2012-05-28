@@ -1,23 +1,8 @@
 package com.beverage;
 
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class BeverageDispenser {
-	
-	private void putCoinCommand(BeverageDispenserState state, String statementParameter) {
-		double coin = Double.parseDouble(statementParameter);
-		state.addCoin(coin);
-	}
-	
-	private void coinReturnCommand(BeverageDispenserState state) {
-		for (Double coin : state.getCoins()) {
-			state.appendToOutput(coin.toString());
-		}
-		
-		state.removeCoins();
-	}
 	
 	public String interact(String string) {
 		
@@ -35,9 +20,11 @@ public class BeverageDispenser {
 					GetBeverageCommand command = new GetBeverageCommand();
 					command.getBeverageCommand(state, statementParameter);
 				} else if("PUT".equals(statement[0])) {
-					putCoinCommand(state, statementParameter);
+					PutCoinCommand command = new PutCoinCommand();
+					command.putCoinCommand(state, statementParameter);
 				} else if("COIN-RETURN".equals(statement[0])) {
-					coinReturnCommand(state);
+					CoinReturnCommand command = new CoinReturnCommand();
+					command.coinReturnCommand(state);
 				}
 			} catch (Throwable e) {
 				//Should never happen
