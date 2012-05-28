@@ -7,6 +7,10 @@ public class GetBeverageCommand {
 	private Map<String, Double> beverages = new HashMap<String, Double>();
 	
 	public void getBeverageCommand(BeverageDispenserState state, String statementParameter) {
+		beverages.put("COCA", 3.0);
+		beverages.put("ORANGINA", 2.5);
+		beverages.put("PERRIER", 2.5);
+		
 		double amount = beverages.get(statementParameter);
 		if (amount <= state.getPendingAmountOfMoney()) {
 			state.appendToOutput(statementParameter);
