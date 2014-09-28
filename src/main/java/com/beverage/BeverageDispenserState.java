@@ -1,4 +1,5 @@
 package com.beverage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,19 +22,19 @@ public class BeverageDispenserState {
 		pendingAmountOfMoney += coin;
 		coins.add(coin);
 	}
-	
-	public void appendToOutput(String str){
-		if(output.length() > 0){
+
+	public void appendToOutput(String str) {
+		if (output.length() > 0) {
 			output.append(", ");
 		}
 		output.append(str);
 	}
-	
-	public String dumpOutput(){
+
+	public String dumpOutput() {
 		return output.toString();
 	}
-	
-	public double getPendingAmountOfMoney(){
+
+	public double getPendingAmountOfMoney() {
 		return pendingAmountOfMoney;
 	}
 

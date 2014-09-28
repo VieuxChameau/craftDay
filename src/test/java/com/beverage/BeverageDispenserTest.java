@@ -1,11 +1,9 @@
-package com.beverage.test;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+package com.beverage;
 
 import org.junit.Test;
 
-import com.beverage.BeverageDispenser;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class BeverageDispenserTest {
 
