@@ -2,18 +2,15 @@ package com.beverage;
 
 import com.google.common.base.Joiner;
 
-import java.util.List;
-
 public enum Command {
 	GET {
 		@Override
-		public String execute(final String commandArg, final List<Double> availableCoins, final BeverageDispenserContext context) {
+		public String execute(final String commandArg, final BeverageDispenserContext context) {
 			double amount = Beverage.valueOf(commandArg).getAmount();
 			if (amount <= context.getMoney()) {
 				while (amount > 0) {
-					Double coin = availableCoins.remove(0);
+					double coin = context.popMoney();
 					amount -= coin;
-					context.descreaseMoney(coin);
 				}
 				return commandArg;
 			}
@@ -22,22 +19,17 @@ public enum Command {
 	},
 	PUT {
 		@Override
-		public String execute(final String commandArg, final List<Double> availableCoins, final BeverageDispenserContext context) {
+		public String execute(final String commandArg, final BeverageDispenserContext context) {
 			final double amountPut = Double.parseDouble(commandArg);
 			context.addMoney(amountPut);
-			availableCoins.add(amountPut);
 			return "";
 		}
 	},
 	COIN_RETURN("COIN-RETURN") {
 		@Override
-		public String execute(final String commandArg, final List<Double> availableCoins, final BeverageDispenserContext context) {
-			if (!context.hasMoney()) {
-				return "";
-			}
-			final String result = Joiner.on(", ").join(availableCoins);
-			context.resetMoney();
-			availableCoins.clear();
+		public String execute(final String commandArg, final BeverageDispenserContext context) {
+			final String result = Joiner.on(", ").join(context.getAvailableCoins());
+			context.reset();
 			return result;
 		}
 	};
@@ -52,7 +44,7 @@ public enum Command {
 		this.command = command;
 	}
 
-	public abstract String execute(final String commandArg, final List<Double> availableCoins, final BeverageDispenserContext context);
+	public abstract String execute(final String commandArg, final BeverageDispenserContext context);
 
 	public String getCommand() {
 		return command;
